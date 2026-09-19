@@ -144,16 +144,16 @@ point is compared with a constant number (≤ 7) of successors.
 <!-- BEGIN:time -->
 | n | ArraysSort | MergeSort | QuickSort | DeterministicSelect | ClosestPair | ClosestPairBrute |
 |---|---|---|---|---|---|---|
-| 1,000 | 0.024 | 0.033 | 0.070 | 0.027 | 0.287 | 0.582 |
-| 2,000 | 0.070 | 0.092 | 0.145 | 0.065 | 0.600 | 2.579 |
-| 5,000 | 0.193 | 0.291 | 0.403 | 0.170 | 1.703 | 16.105 |
-| 10,000 | 0.437 | 0.622 | 0.896 | 0.359 | 3.826 | 65.254 |
-| 20,000 | 0.971 | 1.470 | 1.823 | 0.709 | 8.228 | 272.118 |
-| 50,000 | 2.743 | 3.679 | 4.765 | 1.753 | 22.313 | – |
-| 100,000 | 5.316 | 8.026 | 10.054 | 3.534 | 49.280 | – |
-| 200,000 | 11.503 | 16.973 | 21.349 | 6.657 | 113.337 | – |
-| 500,000 | 30.887 | 45.698 | 56.773 | 17.539 | 430.105 | – |
-| 1,000,000 | 64.645 | 96.503 | 118.964 | 34.138 | 955.087 | – |
+| 1,000 | 0.023 | 0.046 | 0.071 | 0.030 | 0.309 | 0.562 |
+| 2,000 | 0.065 | 0.106 | 0.144 | 0.070 | 0.600 | 2.529 |
+| 5,000 | 0.193 | 0.296 | 0.395 | 0.176 | 1.702 | 16.237 |
+| 10,000 | 0.409 | 0.636 | 0.842 | 0.362 | 3.863 | 68.147 |
+| 20,000 | 0.883 | 1.411 | 1.801 | 0.717 | 8.877 | 281.986 |
+| 50,000 | 2.504 | 3.872 | 4.758 | 1.775 | 22.367 | – |
+| 100,000 | 5.084 | 8.001 | 10.072 | 3.520 | 48.520 | – |
+| 200,000 | 10.863 | 17.084 | 21.336 | 6.681 | 116.289 | – |
+| 500,000 | 29.967 | 45.688 | 56.871 | 17.384 | 438.515 | – |
+| 1,000,000 | 62.009 | 97.452 | 119.435 | 33.755 | 1009.185 | – |
 <!-- END:time -->
 
 ### Execution time by input type
@@ -163,11 +163,11 @@ n = 100 000 (ms):
 <!-- BEGIN:type_100k -->
 | algorithm | RANDOM | SORTED | REVERSE_SORTED | DUPLICATE_HEAVY |
 |---|---|---|---|---|
-| ArraysSort | 5.32 | 0.02 | 0.07 | 2.23 |
-| MergeSort | 8.03 | 0.24 | 2.31 | 5.64 |
-| QuickSort | 10.05 | 6.59 | 6.89 | 3.05 |
-| DeterministicSelect | 3.53 | 1.99 | 2.90 | 1.56 |
-| ClosestPair | 49.28 | 24.44 | 23.93 | 46.50 |
+| ArraysSort | 5.08 | 0.02 | 0.07 | 2.07 |
+| MergeSort | 8.00 | 0.25 | 2.26 | 5.55 |
+| QuickSort | 10.07 | 6.58 | 6.33 | 3.13 |
+| DeterministicSelect | 3.52 | 1.98 | 2.08 | 1.57 |
+| ClosestPair | 48.52 | 23.43 | 23.18 | 45.84 |
 <!-- END:type_100k -->
 
 n = 1 000 000 (ms):
@@ -175,11 +175,11 @@ n = 1 000 000 (ms):
 <!-- BEGIN:type_1m -->
 | algorithm | RANDOM | SORTED | REVERSE_SORTED | DUPLICATE_HEAVY |
 |---|---|---|---|---|
-| ArraysSort | 64.64 | 0.27 | 0.76 | 20.42 |
-| MergeSort | 96.50 | 2.09 | 25.07 | 58.01 |
-| QuickSort | 118.96 | 74.72 | 74.64 | 30.67 |
-| DeterministicSelect | 34.14 | 18.88 | 20.00 | 26.83 |
-| ClosestPair | 955.09 | 520.68 | 547.03 | 976.99 |
+| ArraysSort | 62.01 | 0.27 | 0.77 | 19.97 |
+| MergeSort | 97.45 | 2.53 | 25.16 | 58.82 |
+| QuickSort | 119.44 | 72.93 | 74.18 | 31.79 |
+| DeterministicSelect | 33.75 | 19.27 | 19.99 | 26.07 |
+| ClosestPair | 1009.18 | 528.67 | 553.09 | 956.56 |
 <!-- END:type_1m -->
 
 ### Recursion depth
@@ -326,5 +326,6 @@ Having a simple reference for every algorithm (`Arrays.sort`, brute-force closes
 
 Work was done on feature branches merged into `main` with `--no-ff`: `feature/mergesort`, `feature/quicksort`, `feature/select`, `feature/closest-pair`, `feature/metrics`, `feature/testing`, `docs/report`.
 Commit messages follow the pattern `feat(...)`, `docs(...)`, `fix`, `release` (see `git log --oneline --graph`); the final version is tagged `v1.0`.
-#   a s s i g n m e n t 1 - d i v i d e - a n d - c o n q u e r  
+#   a s s i g n m e n t 1 - d i v i d e - a n d - c o n q u e r 
+ 
  
