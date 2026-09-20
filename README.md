@@ -142,6 +142,7 @@ point is compared with a constant number (≤ 7) of successors.
 ### Execution time vs n — random input (ms)
 
 <!-- BEGIN:time -->
+
 | n | ArraysSort | MergeSort | QuickSort | DeterministicSelect | ClosestPair | ClosestPairBrute |
 |---|---|---|---|---|---|---|
 | 1,000 | 0.023 | 0.046 | 0.071 | 0.030 | 0.309 | 0.562 |
@@ -154,6 +155,7 @@ point is compared with a constant number (≤ 7) of successors.
 | 200,000 | 10.863 | 17.084 | 21.336 | 6.681 | 116.289 | – |
 | 500,000 | 29.967 | 45.688 | 56.871 | 17.384 | 438.515 | – |
 | 1,000,000 | 62.009 | 97.452 | 119.435 | 33.755 | 1009.185 | – |
+
 <!-- END:time -->
 
 ### Execution time by input type
@@ -161,6 +163,7 @@ point is compared with a constant number (≤ 7) of successors.
 n = 100 000 (ms):
 
 <!-- BEGIN:type_100k -->
+
 | algorithm | RANDOM | SORTED | REVERSE_SORTED | DUPLICATE_HEAVY |
 |---|---|---|---|---|
 | ArraysSort | 5.08 | 0.02 | 0.07 | 2.07 |
@@ -168,11 +171,13 @@ n = 100 000 (ms):
 | QuickSort | 10.07 | 6.58 | 6.33 | 3.13 |
 | DeterministicSelect | 3.52 | 1.98 | 2.08 | 1.57 |
 | ClosestPair | 48.52 | 23.43 | 23.18 | 45.84 |
+
 <!-- END:type_100k -->
 
 n = 1 000 000 (ms):
 
 <!-- BEGIN:type_1m -->
+
 | algorithm | RANDOM | SORTED | REVERSE_SORTED | DUPLICATE_HEAVY |
 |---|---|---|---|---|
 | ArraysSort | 62.01 | 0.27 | 0.77 | 19.97 |
@@ -180,6 +185,7 @@ n = 1 000 000 (ms):
 | QuickSort | 119.44 | 72.93 | 74.18 | 31.79 |
 | DeterministicSelect | 33.75 | 19.27 | 19.99 | 26.07 |
 | ClosestPair | 1009.18 | 528.67 | 553.09 | 956.56 |
+
 <!-- END:type_1m -->
 
 ### Recursion depth
@@ -187,6 +193,7 @@ n = 1 000 000 (ms):
 Random input:
 
 <!-- BEGIN:depth -->
+
 | n | MergeSort | QuickSort | DeterministicSelect | ClosestPair |
 |---|---|---|---|---|
 | 1,000 | 7 | 7 | 8 | 10 |
@@ -199,28 +206,33 @@ Random input:
 | 200,000 | 15 | 12 | 16 | 18 |
 | 500,000 | 16 | 14 | 19 | 19 |
 | 1,000,000 | 17 | 15 | 18 | 20 |
+
 <!-- END:depth -->
 
 By input type, n = 1 000 000:
 
 <!-- BEGIN:depth_type_1m -->
+
 | algorithm | RANDOM | SORTED | REVERSE_SORTED | DUPLICATE_HEAVY |
 |---|---|---|---|---|
 | MergeSort | 17 | 17 | 17 | 17 |
 | QuickSort | 15 | 14 | 14 | 5 |
 | DeterministicSelect | 18 | 19 | 18 | 12 |
 | ClosestPair | 20 | 20 | 20 | 20 |
+
 <!-- END:depth_type_1m -->
 
 ### Additional metrics (n = 1 000 000, random input)
 
 <!-- BEGIN:metrics -->
+
 | algorithm | comparisons | swaps | calls | allocations |
 |---|---|---|---|---|
 | MergeSort | 20,286,405 | 28,417,087 | 131,071 | 1 |
 | QuickSort | 37,929,875 | 18,518,898 | 666,521 | 0 |
 | DeterministicSelect | 10,181,198 | 9,773,627 | 6,725 | 0 |
 | ClosestPair | 18,689,972 | 37,708,544 | 951,423 | 3 |
+
 <!-- END:metrics -->
 
 `comparisons` for ClosestPair = distance checks + y-merge comparisons (the initial `Arrays.sort` by x is not counted);
@@ -250,22 +262,22 @@ By input type, n = 1 000 000:
 
 ### Do the results match the theoretical complexity?
 
-Yes. Dividing the measured time by the predicted bound gives an almost flat line (third plot). For random input, MergeSort costs 4.68 / 4.83 / 4.84 ns per n·log₂n unit at
-n = 10⁴ / 10⁵ / 10⁶, QuickSort 6.74 / 6.05 / 5.97 ns, and Deterministic Select 36.0 / 35.3 / 34.1 ns **per element** — i.e. its time is linear (10× more data → 10× more time).
+Yes. Dividing the measured time by the predicted bound gives an almost flat line (third plot). For random input, MergeSort costs 4.79 / 4.82 / 4.89 ns per n·log₂n unit at
+n = 10⁴ / 10⁵ / 10⁶, QuickSort 6.34 / 6.06 / 5.99 ns, and Deterministic Select 36.2 / 35.2 / 33.8 ns **per element** — i.e. its time is linear (10× more data → about 10× more time).
 The counters agree: MergeSort performs 1.02·n·log₂n comparisons at n = 10⁶, Select performs 10.2·n comparisons at every size, and the recursion depths follow log₂ n
-(MergeSort 17 = ⌈log₂(10⁶/16)⌉ + 1, ClosestPair 20 = ⌈log₂(10⁶/3)⌉ + 1). ClosestPair costs 28.8 / 29.7 ns per n·log₂n at n = 10⁴ / 10⁵ and jumps to 47.9 ns at n = 10⁶: the algorithm works with
+(MergeSort 17 = ⌈log₂(10⁶/16)⌉ + 1, ClosestPair 20 = ⌈log₂(10⁶/3)⌉ + 1). ClosestPair costs 29.1 / 29.2 ns per n·log₂n at n = 10⁴ / 10⁵ and jumps to 50.6 ns at n = 10⁶: the algorithm works with
 millions of `Point` objects, so cache misses and garbage collection add a constant factor that grows once the data no longer fits in the CPU caches. This is a practical effect, not a change of the asymptotic class
 (its comparison counts still grow like n·log₂n). Small sizes (n ≤ 5 000) are noisy because of JIT compilation, which is why every point is a median of several runs.
 
 ### How does input structure affect performance?
 
-* **MergeSort** has the same recursion depth for every input type (17 at n = 10⁶), but the constant changes a lot: sorted input takes 2.1 ms vs 96.5 ms for random input, because every merge is skipped by the
-  `a[mid-1] <= a[mid]` check and the branches are perfectly predictable; reverse-sorted input (25.1 ms) still benefits from predictable merge branches.
-* **QuickSort** does **not** degrade on sorted or reverse-sorted input (74.7 / 74.6 ms vs 119.0 ms random) — the random pivot removes the classic O(n²) trap. Duplicate-heavy input is the *fastest* case (30.7 ms, depth 5) thanks to the
+* **MergeSort** has the same recursion depth for every input type (17 at n = 10⁶), but the constant changes a lot: sorted input takes 2.5 ms vs 97.5 ms for random input, because every merge is skipped by the
+  `a[mid-1] <= a[mid]` check and the branches are perfectly predictable; reverse-sorted input (25.2 ms) still benefits from predictable merge branches.
+* **QuickSort** does **not** degrade on sorted or reverse-sorted input (72.9 / 74.2 ms vs 119.4 ms random) — the random pivot removes the classic O(n²) trap. Duplicate-heavy input is the *fastest* case (31.8 ms, depth 5) thanks to the
   three-way partition: the block of equal keys is excluded from further recursion. With a two-way partition this input would be quadratic.
-* **Deterministic Select** is ≈ 1.7–1.8× faster on presorted data (18.9–20.0 ms vs 34.1 ms) and ≈ 1.3× faster with many duplicates (26.8 ms), again because of predictable branches and the three-way partition.
-* **ClosestPair** is ≈ 1.8× faster on inputs presorted by x (521–547 ms vs 955 ms) because its first step — sorting by x — is almost free on presorted data (`Arrays.sort` on objects is a TimSort that detects existing runs).
-  The duplicate-heavy input costs the same as random input (977 ms vs 955 ms): the Θ(n log n) skeleton (sort + recursion + merges by y) dominates, and once the best distance is 0 the strip becomes empty.
+* **Deterministic Select** is ≈ 1.7–1.8× faster on presorted data (19.3–20.0 ms vs 33.8 ms) and ≈ 1.3× faster with many duplicates (26.1 ms), again because of predictable branches and the three-way partition.
+* **ClosestPair** is ≈ 1.8–1.9× faster on inputs presorted by x (529–553 ms vs 1009 ms) because its first step — sorting by x — is almost free on presorted data (`Arrays.sort` on objects is a TimSort that detects existing runs).
+  The duplicate-heavy input costs about the same as random input (957 ms vs 1009 ms): the Θ(n log n) skeleton (sort + recursion + merges by y) dominates, and once the best distance is 0 the strip becomes empty.
 
 ### Why does smaller-first recursion help QuickSort?
 
@@ -280,16 +292,16 @@ The pivot is the median of the ⌈n/5⌉ group medians, so at least half of the 
 ### Why is divide-and-conquer Closest Pair faster than O(n²) for large inputs?
 
 Brute force checks all n(n−1)/2 pairs: 199 990 000 distance checks at n = 20 000. The divide-and-conquer solution does only 262 084 checks for the same input, because the combine step compares each strip point with a constant number of neighbours (the packing argument above)
-and therefore costs Θ(n) instead of Θ(n²). Measured: 272 ms (brute force) vs 8.2 ms (divide and conquer) at n = 20 000, a 33× difference that keeps growing — going from n = 1 000 to n = 10 000 multiplies the brute-force time by 112 (≈ 10² as predicted) but the divide-and-conquer time only by 13.3 (≈ 10·log-factor).
-Even at n = 1 000 the divide-and-conquer version is already about 2× faster (0.29 ms vs 0.58 ms), although it has extra overhead (sorting objects, allocation, recursion).
+and therefore costs Θ(n) instead of Θ(n²). Measured: 282 ms (brute force) vs 8.9 ms (divide and conquer) at n = 20 000, a 32× difference that keeps growing — going from n = 1 000 to n = 10 000 multiplies the brute-force time by 121 (≈ 10² as predicted) but the divide-and-conquer time only by 12.5 (≈ 10·log-factor).
+Even at n = 1 000 the divide-and-conquer version is already about 1.8× faster (0.31 ms vs 0.56 ms), although it has extra overhead (sorting objects, allocation, recursion).
 
 ### What practical factors affect performance?
 
 * **JIT compilation and warm-up.** The first runs execute in the interpreter; tiny inputs are dominated by compilation time. Hence the warm-up sweep and the median of several repetitions.
-* **Garbage collection and allocation.** ClosestPair works on arrays of `Point` objects (many allocations, pointer chasing); the `int[]` algorithms use contiguous memory. This is one reason ClosestPair costs ≈ 29–48 ns per n·log₂n vs ≈ 5 ns for MergeSort.
+* **Garbage collection and allocation.** ClosestPair works on arrays of `Point` objects (many allocations, pointer chasing); the `int[]` algorithms use contiguous memory. This is one reason ClosestPair costs ≈ 29–51 ns per n·log₂n vs ≈ 5 ns for MergeSort.
 * **CPU cache and branch prediction.** Sorted inputs are fast for MergeSort (skipped merges) and Select; random inputs cause branch mispredictions in partition and merge loops. The three-way partition performs up to two comparisons per element
   (QuickSort: 1.90·n·log₂n comparisons vs 1.02·n·log₂n for MergeSort), which is why our QuickSort (119 ms) is slower than MergeSort (97 ms) at n = 10⁶ even though it uses no auxiliary buffer — the textbook "QuickSort is faster in practice" claim depends on a tuned two-way partition.
-* **Library baseline.** `Arrays.sort` (dual-pivot QuickSort with heavy tuning) needs 65 ms for n = 10⁶ random ints, ≈ 1.5× faster than our MergeSort.
+* **Library baseline.** `Arrays.sort` (dual-pivot QuickSort with heavy tuning) needs 62 ms for n = 10⁶ random ints, ≈ 1.6× faster than our MergeSort.
 * **Measurement itself.** The counters (`Metrics`) add a small overhead to every algorithm equally; the benchmark runs on a normal desktop OS, so JIT/GC background threads and other programs compete for the CPU; `System.nanoTime()` has a resolution of tens of nanoseconds, which matters only for the smallest inputs.
 
 ---
@@ -326,6 +338,3 @@ Having a simple reference for every algorithm (`Arrays.sort`, brute-force closes
 
 Work was done on feature branches merged into `main` with `--no-ff`: `feature/mergesort`, `feature/quicksort`, `feature/select`, `feature/closest-pair`, `feature/metrics`, `feature/testing`, `docs/report`.
 Commit messages follow the pattern `feat(...)`, `docs(...)`, `fix`, `release` (see `git log --oneline --graph`); the final version is tagged `v1.0`.
-#   a s s i g n m e n t 1 - d i v i d e - a n d - c o n q u e r 
- 
- 
